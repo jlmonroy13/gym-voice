@@ -1,0 +1,74 @@
+---
+description: Protect the boundary between the internal domain and voice-pipeline / external integrations
+alwaysApply: true
+---
+
+# Domain vs Voice and External Boundary
+
+The internal domain (user, session, exercise, set, set group) and the voice-pipeline / external APIs must remain separate.
+
+This boundary is one of the most important architectural protections in the repository.
+
+## Core Rule
+
+Internal business entities must not be shaped around voice-API output format, OAuth provider payloads, or transport concerns.
+
+Voice-API and OAuth outputs should be mapped into the internal domain through dedicated parsing and auth layers.
+
+## Internal Domain Should Model
+
+The domain layer should model concepts such as:
+
+- user
+- session (start/end time, duration, state)
+- exercise (name or identifier)
+- set (exercise, weight, reps, notes, order)
+- set group (superset/triset, sets, notes)
+- lifecycle semantics (pending, confirmed, persisted)
+
+These are business and workflow concepts.
+
+## Voice Pipeline and External Layer Should Handle
+
+The voice pipeline and external integrations should handle:
+
+- voice-to-text API calls and response shape
+- raw text → parsed structure (ParseExerciseSkill, GroupSeriesSkill)
+- validation and error categories (unrecognized, incomplete, conflict)
+- OAuth login flow and token refresh
+- mapping external identity to internal user
+
+These are integration and pipeline concerns.
+
+## Do Not
+
+Do not:
+
+- introduce voice-API–specific field names or structures directly into core domain entities
+- make the domain layer depend on voice-to-text clients or OAuth SDKs
+- put parsing or grouping logic inside domain services (keep it in the voice pipeline)
+- leak transport or serialization concerns into business rules
+- use framework or request objects in the domain layer
+
+## Acceptable Pattern
+
+The preferred pattern is:
+
+voice API text → voice pipeline (parse, group, validate) → structured set(s) or error category → application layer → domain model → persistence
+
+OAuth provider → auth layer → internal user/session → domain and API
+
+## Review Trigger
+
+If a change introduces voice-API– or OAuth-specific semantics directly into:
+
+- domain entities
+- domain services
+- generic validation code that should be pipeline-agnostic
+- unrelated API handlers
+
+treat it as a structural problem and stop.
+
+## Final Rule
+
+Protect the internal domain from voice-API and external-integration complexity. That separation keeps the system easier to evolve, test, and reason about.

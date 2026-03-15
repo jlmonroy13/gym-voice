@@ -1,0 +1,35 @@
+---
+description: On-demand review expectations for QA-oriented validation of pull requests
+---
+
+# QA Review Expectations
+
+Use this rule when performing a QA-style review of a PR.
+
+## Core Rule
+
+QA review must validate intended behavior, not just code style.
+
+## QA Review Should Check
+
+- issue alignment
+- acceptance criteria coverage
+- failure path handling (voice unrecognized, incomplete set, conflict, auth/session errors)
+- regression risk (parsing, grouping, persistence, session lifecycle)
+- lifecycle/state integrity (session, set, set group)
+- persistence or data-integrity effects where relevant
+- test adequacy (unit for parsing/grouping, integration for session/set, UI for key screens where applicable)
+- documentation impact if behavior changed materially
+
+## Structure Feedback As
+
+- verdict
+- scope check
+- acceptance criteria check
+- blocking findings
+- non-blocking improvements
+- missing validation or documentation
+
+## Final Rule
+
+A QA review that ignores behavior and focuses only on style is not doing the job this repository needs.

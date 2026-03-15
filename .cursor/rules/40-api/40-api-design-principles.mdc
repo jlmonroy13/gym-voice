@@ -1,0 +1,67 @@
+---
+description: API design principles for the GymVoice backend
+globs:
+  - "backend/**/*.ts"
+---
+
+# API Design Principles
+
+Use this rule when designing or modifying backend API endpoints.
+
+## Core Rule
+
+The API layer must stay thin.
+
+For framework and tooling choices, consult `docs/architecture/STACK.md`.
+
+It should:
+
+- receive requests
+- validate transport shape
+- authenticate and authorize if applicable
+- delegate to application services
+- return normalized responses
+
+It should not:
+
+- contain voice parsing or grouping logic
+- contain business invariants that belong in the domain layer
+- orchestrate multi-step workflow logic that belongs in the application layer
+
+## API Priorities
+
+The API should be:
+
+- explicit
+- predictable
+- narrow
+- easy to integrate with (mobile client)
+- easy to validate
+- easy to reason about in failure scenarios
+
+## Preferred Behavior
+
+Prefer:
+
+- resource-oriented endpoints (sessions, sets, users)
+- explicit actions when workflow matters (e.g. start session, end session, persist set)
+- normalized error responses aligned with SOLUTION_DESIGN error model (UNRECOGNIZED_VOICE, INCOMPLETE_SET, CONFLICTING_DATA, AUTH_ERROR, SESSION_ERROR, VALIDATION_ERROR)
+- clear distinction between validation errors, domain errors, and server errors
+
+## Avoid
+
+Avoid:
+
+- controllers that orchestrate too much logic
+- hidden workflow triggers
+- overly generic endpoints with ambiguous behavior
+- leaking internal implementation detail into the public contract
+- endpoint behavior that implicitly performs multiple major workflow steps without stating so
+
+## Workflow Awareness
+
+This API is workflow-oriented. Session start, set persistence, session end, and history retrieval are different operations and should remain explicit.
+
+## Final Rule
+
+If the endpoint design makes the workflow harder to understand or blurs responsibility between API and application/domain layers, the API shape should be reconsidered.

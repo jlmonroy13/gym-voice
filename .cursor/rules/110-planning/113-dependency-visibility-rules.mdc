@@ -1,0 +1,38 @@
+---
+description: On-demand rules for keeping dependencies visible in issues and board
+---
+
+# Dependency Visibility Rules
+
+Use this rule when creating or updating issues and when planning work order.
+
+## Core Rule
+
+Dependencies between issues must be visible in the issue (e.g. “Depends on #N”) and, if applicable, on the project board. Do not start an issue whose dependencies are not closed or removed.
+
+## Make Dependencies Explicit
+
+In the issue body, call out:
+
+- **Depends on #N** — List issue numbers that must be merged (or removed as dependency) before this issue can be started.
+- Why the dependency exists — e.g. “Requires auth API” or “Requires ParseExerciseSkill output shape.”
+
+## GymVoice Dependency Patterns
+
+Many features depend on earlier work. Examples:
+
+- Voice logging depends on auth and session start/API.
+- Superset/triset grouping depends on single-set parsing and persistence.
+- History view depends on session/set persistence.
+- Any issue that touches VoiceParserAgent, ParseExerciseSkill, GroupSeriesSkill, or persistence should list any issue that must merge first (e.g. backend models/routes, voice API integration).
+
+Respect milestone order (M1 before M2). If the issue consumes data or API from another issue, that other issue is a dependency.
+
+## Do Not
+
+- Start an issue when a dependency is still open unless the dependency was explicitly removed or deferred.
+- Assume “someone else will do the base work”; make it explicit.
+
+## Final Rule
+
+If the implementer cannot tell what must be done first, dependencies are not visible enough. Reference: MILESTONES.md, MVP_PLAN.md, TASK_EXECUTION_WORKFLOW.md.

@@ -1,0 +1,50 @@
+---
+description: Tool precedence for GitHub operations in this repository
+alwaysApply: true
+---
+
+# GitHub Tooling Precedence
+
+For this repository, prefer `gh` CLI over GitHub MCP for GitHub operations that modify state.
+
+## Project and Repository
+
+- **Repository:** https://github.com/jlmonroy13/gym-voice (jlmonroy13/gym-voice). Use this for scripts, links, and `gh` commands.
+- **Project board:** GymVoice (number 3), https://github.com/users/jlmonroy13/projects/3/views/1?layout=board. **Status** options: Backlog, Ready, In progress, In review, Done.
+
+## Prefer gh CLI
+
+Use **gh** CLI by default for:
+
+- creating issues
+- editing issues
+- adding labels
+- creating pull requests
+- commenting on issues or PRs
+- adding items to the GitHub Project
+- updating GitHub Project fields (e.g. Status)
+- checking project and issue status when the workflow depends on write-capable GitHub operations
+
+Use GitHub MCP only when:
+
+- the task is read-only, or
+- the user explicitly asks to use MCP, or
+- `gh` CLI cannot support the required operation cleanly
+
+Before performing write operations with `gh`, verify authentication with:
+
+- `gh auth status`
+
+For project board updates, ensure token has project scope; if needed: `gh auth refresh -s project,read:project`.
+
+## Scripts
+
+- **scripts/task-start.sh N** — Create branch `issue/N-title-slug`; remind to move issue to “In progress.”
+- **scripts/task-pr.sh [N]** — Open PR with “Closes #N”; N from arg or from branch name.
+- **scripts/task-done.sh [N]** — Remind to move issue to “Done” after merge.
+
+Set `GITHUB_REPO` in the environment or in the scripts if you need a different repo. All scripts default to jlmonroy13/gym-voice.
+
+## Consistency Rule
+
+Do not mix MCP and CLI for the same write workflow unless there is a clear reason. Prefer one consistent execution path per task.

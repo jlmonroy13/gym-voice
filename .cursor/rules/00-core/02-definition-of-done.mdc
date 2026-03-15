@@ -1,0 +1,232 @@
+---
+description: Global definition of done and merge-readiness standard for GymVoice
+alwaysApply: true
+---
+
+# Definition of Done
+
+This rule defines the minimum completion standard for all work in this repository.
+
+No issue, task, or pull request should be treated as done unless it meets the standards below.
+
+Full criteria and sensitive-area details: `docs/process/DEFINITION_OF_DONE.md`.
+
+## Core Rule
+
+Work is not done because code exists.
+
+Work is done only when:
+
+- the approved scope is implemented
+- acceptance criteria are satisfied
+- relevant validation is completed
+- important behavior is explicit
+- traceability is preserved
+- documentation is updated when needed
+- the result is safe to review and safe to merge
+
+## Universal Done Criteria
+
+### 1. Scope Alignment
+
+The delivered implementation must match the issue scope.
+
+That means:
+
+- the intended outcome is actually implemented
+- unrelated work is not bundled into the change
+- hidden scope expansion is avoided
+- any meaningful deviation is surfaced and approved
+
+### 2. Acceptance Criteria Completion
+
+All issue acceptance criteria must be explicitly satisfied.
+
+Do not:
+
+- assume criteria are met because the code “looks right”
+- treat missing details as resolved by implication
+- close issues with partially fulfilled acceptance criteria
+
+### 3. Correctness
+
+The implementation must behave correctly for its intended use.
+
+Correctness includes:
+
+- logic correctness
+- expected data handling
+- valid state behavior (e.g. session/set lifecycle)
+- appropriate persistence effects
+- appropriate failure behavior where relevant
+
+### 4. Validation
+
+The work must be validated at the appropriate level.
+
+Validation may include:
+
+- lint
+- typecheck
+- tests (unit, integration, or UI as applicable)
+- build
+- manual verification where needed
+
+If behavior changed materially and no meaningful validation occurred, the work is not done.
+
+### 5. Reviewability
+
+The change must be easy to review.
+
+A reviewable change:
+
+- has clear intent
+- is small enough to reason about
+- avoids bundling unrelated refactors
+- includes a useful PR summary
+- links back to the issue
+- gives the reviewer enough context to validate the change
+
+### 6. Traceability
+
+Critical behavior changes must be traceable.
+
+At minimum:
+
+- the PR links to the issue
+- issue and implementation match
+- important lifecycle effects are not hidden
+- relevant persistence or state outcomes are understandable
+
+### 7. Documentation
+
+Docs must be updated when behavior, structure, or scope changes materially.
+
+Documentation should not be treated as an optional cleanup step. If the change affects design, process, or supported behavior, docs may need to change before merge.
+
+### 8. Safety to Merge
+
+The branch must be safe to merge.
+
+That means:
+
+- no unresolved blocking defects remain
+- CI passes where applicable
+- no critical reviewer concerns remain unresolved
+- the change does not knowingly destabilize the supported workflow
+
+## Required Checks Before Marking Work Done
+
+Unless clearly not applicable, confirm:
+
+- issue scope implemented
+- acceptance criteria checked
+- relevant validation run (lint, typecheck, tests, build)
+- PR links the issue
+- docs updated if needed
+- no known blocking issue remains in delivered scope
+
+## Stricter Done Rules for Voice-Pipeline and Data-Integrity Work
+
+The following areas require stricter standards:
+
+- voice input → parsed structure (ParseExerciseSkill, GroupSeriesSkill, VoiceParserAgent, ErrorHandlerAgent)
+- confirmation flow (incomplete or conflicting set → do not persist without confirmation)
+- session and set persistence
+- auth and token handling
+- user and session data handling
+
+For such work, “done” also requires:
+
+- behavior is explicit and understandable
+- traceability is preserved
+- failure handling was considered
+- validation is meaningful, not superficial
+- critical parsing or persistence paths are covered by tests where applicable
+
+## Stricter Done Rules for Architecture Changes
+
+If a change affects structure, boundaries, workflow orchestration, state model, or persistence design, it is not done unless:
+
+- the architectural nature of the change is acknowledged
+- the reasoning is explicit
+- relevant docs are updated
+- an ADR is created or updated if needed
+- the resulting boundaries remain understandable
+
+## Stricter Done Rules for API Changes
+
+If request/response contracts, endpoint behavior, or error semantics change, the work is not done unless:
+
+- contract behavior is intentional
+- request validation is clear
+- error behavior is explicit
+- compatibility expectations are considered
+- callers have enough clarity to use the API safely
+
+## Stricter Done Rules for Persistence Changes
+
+If a change affects schema or persistence behavior, it is not done unless:
+
+- the change is intentional
+- data consistency implications were considered
+- operational traceability is preserved where needed
+- migrations are reviewed if applicable
+- the new persistence shape still supports supportability
+
+## Things That Do Not Count as Done
+
+The following do not qualify as done on their own:
+
+- code compiles locally
+- a happy path worked once
+- a PR was opened
+- a feature “basically works”
+- tests will be added later
+- docs will be updated later
+- reviewers can figure it out from the diff
+- a critical TODO remains in the delivered path
+- hidden assumptions are required to understand the behavior
+
+## Review Standard
+
+A PR should not be considered ready if:
+
+- intent is unclear
+- acceptance criteria are not obviously addressed
+- related docs should have changed but did not
+- key risk areas (voice pipeline, auth, persistence) are unvalidated
+- the change is too broad to review confidently
+
+## Issue Closure Standard
+
+An issue should not be moved to done unless:
+
+- the linked implementation matches the issue
+- the acceptance criteria are actually met
+- blockers are resolved or turned into explicit follow-up issues
+- the delivered outcome is real, not partial work disguised as completion
+
+## Human Review Requirement
+
+Human review is still required for:
+
+- architecture changes
+- voice-pipeline or data-integrity behavior changes
+- API contract changes
+- auth or persistence design changes
+- security-sensitive changes
+
+AI assistance can accelerate delivery. It does not replace accountability for critical changes.
+
+## GymVoice Sensitive Areas (Summary)
+
+In these areas, require **explicit behavior**, **traceability**, and **sufficient tests**. Block merge if behavior is unclear, data can be corrupted, or tests are missing for critical paths.
+
+1. **Authentication:** Token/session handling, OAuth flows; no untested auth paths.
+2. **User data and session persistence:** Saving/loading users, sessions, sets, set groups; history and progress. Business rule: do not save incomplete or conflicting sets without confirmation. Tests should cover valid and invalid payloads.
+3. **Voice-to-structured-data pipeline:** Voice → parsed structure → grouping → validation before persist. Unit tests for ParseExerciseSkill and GroupSeriesSkill; integration for SessionManager + ExerciseLogger; edge cases per Technical Documentation. Block merge if critical parsing or validation paths are untested.
+
+## Final Rule
+
+If a change technically works but is not validated, not documented when necessary, not traceable, or not safe to support in production, it is not done.

@@ -1,0 +1,39 @@
+---
+description: On-demand rules for when an issue is ready to be picked up (Ready state)
+---
+
+# When an Issue Is Ready
+
+Use this rule when moving an issue to “Ready” or when deciding whether to start an issue (move to “In progress”).
+
+## Core Rule
+
+An issue is **ready** when it can be executed without major clarification: objective, scope, acceptance criteria, and dependencies are clear and satisfied.
+
+## Ready Means
+
+- **Clear objective** — What is being built or fixed and why it matters.
+- **Bounded scope** — What is in scope and, where it matters, what is out of scope.
+- **Dependencies visible and satisfied** — “Depends on #N” is listed and those issues are closed (or the dependency was removed). Do not move to “In progress” if a dependency is still open.
+- **Meaningful, verifiable acceptance criteria** — Enough to implement and review against; no major ambiguity.
+- **No major architecture or domain ambiguity** — For the scope of the issue, the implementer knows where the work lives (which layer, which agent/skill/API).
+- **Aligned with MVP/planning** — Fits MILESTONES.md and MVP_PLAN.md; not out-of-scope work.
+
+## Do Not Start If
+
+- The issue is vague or bundles multiple outcomes.
+- Dependencies are unresolved (e.g. “Depends on #3” but #3 is not closed).
+- Acceptance criteria are missing or too generic to verify.
+- It is unclear which component (e.g. ParseExerciseSkill vs GroupSeriesSkill vs API) owns the change.
+
+## GymVoice-Specific: Ready for Voice Pipeline, Persistence, or Auth
+
+For issues touching voice pipeline, persistence, or auth, “ready” also means:
+
+- It is clear which agent/skill or API is in scope.
+- Acceptance criteria cover both the happy path and at least one error path (e.g. incomplete set, unrecognized phrase) where the business rules require confirmation or clarification.
+- If the issue depends on another (e.g. “Depends on #3”), #3 must be closed or the dependency removed before starting.
+
+## Final Rule
+
+Do not move to “In progress” until the issue is ready. Reference: TASK_EXECUTION_WORKFLOW.md §1.1, DEFINITION_OF_DONE.md.

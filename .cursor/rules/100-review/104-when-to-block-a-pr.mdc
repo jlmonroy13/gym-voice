@@ -1,0 +1,46 @@
+---
+description: On-demand rules for when to block merge of a PR
+---
+
+# When to Block a PR
+
+Use this rule when deciding whether to block merge or request changes.
+
+## Core Rule
+
+Block merge if the PR does not meet the repository’s definition of done or introduces unacceptable risk to scope, quality, or data integrity.
+
+## Block If Any of the Following
+
+- **Acceptance criteria not met** — The implementation does not satisfy the issue’s acceptance criteria, or criteria were changed without updating the issue.
+- **Regressions not addressed** — Existing behavior was broken and the break is not intentional or documented.
+- **Unresolved critical review comments** — Reviewer raised blocking concerns that remain unanswered or unaddressed.
+- **Scope creep** — The PR implements work outside the approved issue scope without explicit agreement.
+- **Insufficient validation** — The change affects behavior but has no or inadequate tests (or manual validation where tests are not feasible).
+- **Insufficient documentation** — The change affects behavior, scope, or architecture and relevant docs were not updated, with no justified exception.
+
+## Stricter Standards in GymVoice Sensitive Areas
+
+In these areas, **block** unless behavior is explicit, traceable, and adequately tested:
+
+### 1. Authentication
+
+- Token/session handling, OAuth flows, registration.
+- Block if: auth paths are untested or behavior is unclear.
+
+### 2. User Data and Session Persistence
+
+- Saving/loading users, sessions, sets, set groups; history and progress.
+- Business rule: do not save incomplete or conflicting sets without confirmation.
+- Block if: data could be corrupted (e.g. incomplete or conflicting sets saved without confirmation); tests are missing for critical create/update/query paths.
+
+### 3. Voice-to-Structured-Data Pipeline
+
+- Parsing (ParseExerciseSkill), grouping (GroupSeriesSkill), validation (VoiceParserAgent, ErrorHandlerAgent); confirmation flow before persist.
+- Block if: behavior is unclear or underspecified; tests are missing for critical parsing or validation paths (e.g. ParseExerciseSkill, GroupSeriesSkill, incomplete set, unrecognized phrase).
+
+## Summary
+
+If the PR touches sensitive areas and any of the above is not satisfied, request changes before merge. “Probably correct” is not sufficient in these areas.
+
+Reference: DEFINITION_OF_DONE.md; PROJECT.md sensitive areas; Business Logic §4 (errors and exceptions, data integrity); 02-definition-of-done.mdc.

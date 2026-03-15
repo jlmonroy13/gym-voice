@@ -1,0 +1,59 @@
+---
+description: Persistence principles for session and set traceability and supportability
+globs:
+  - "backend/**/repositories/**/*.ts"
+  - "backend/**/db/**/*.ts"
+  - "**/migrations/**/*.sql"
+  - "**/migrations/**/*.ts"
+---
+
+# Persistence Principles
+
+Use this rule when designing or modifying persistence behavior.
+
+## Core Rule
+
+Persistence must support correctness, traceability, and operational support.
+
+This system is not storing only business data. It is also storing session lifecycle, set history, and user progress.
+
+## Persistence Priorities
+
+Persist data in a way that preserves:
+
+- current state (user, active/completed session, sets, set groups)
+- meaningful history (sessions over time, progress queries)
+- supportability after failure (no silent data loss, understandable schema)
+- data integrity (no overwrite of confirmed data by unconfirmed or conflicting data)
+
+## Prefer
+
+Prefer:
+
+- explicit persistence models (users, sessions, sets, set_groups or equivalent)
+- clear distinction between current session state and historical records
+- intentional repository boundaries
+- schema shapes that support operations (history, progress), not just happy-path reads
+
+## Avoid
+
+Avoid:
+
+- overwriting meaningful history carelessly
+- mixing unrelated lifecycle concerns into one opaque record
+- persistence shortcuts that destroy supportability (e.g. persisting unconfirmed sets when the rule is to confirm first)
+- schema changes with unclear operational effect
+
+## Business Rule Alignment
+
+Do not persist:
+
+- incomplete sets (e.g. missing reps or weight) without explicit confirmation having been recorded
+- conflicting set data without clarification
+- sets that the voice pipeline classified as unrecognized or ambiguous without user confirmation
+
+Persistence layer should receive already-validated, confirmed structures from the application layer.
+
+## Final Rule
+
+If persistence makes it hard to reconstruct what happened to a session or set (when it was stored, whether it was confirmed), the design is too weak.

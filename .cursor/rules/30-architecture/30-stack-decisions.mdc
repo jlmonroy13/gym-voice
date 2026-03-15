@@ -1,0 +1,65 @@
+---
+description: Stack and tooling decisions reference for implementation
+globs:
+  - "**/package.json"
+  - "mobile/**/*.ts"
+  - "mobile/**/*.tsx"
+  - "backend/**/*.ts"
+alwaysApply: false
+---
+
+# Stack Decisions Reference
+
+Use this rule when implementing features, adding dependencies, or proposing technical alternatives.
+
+## Core Rule
+
+Stack and tooling decisions are documented in `docs/architecture/STACK.md`.
+
+Before proposing or introducing a library, framework, or tool, consult STACK.md to check if a decision already exists.
+
+## Locked Decisions (Summary)
+
+The following areas have explicit decisions that should not be changed without strong justification and explicit approval:
+
+| Area | Decision | Reference |
+|------|----------|-----------|
+| Mobile framework | React Native | STACK.md §Mobile layer |
+| Backend runtime | Node.js LTS | STACK.md §Core stack |
+| Database | PostgreSQL (Neon) | STACK.md §Core stack |
+| API style | REST, JSON | STACK.md §Backend API |
+| Request/response validation | Zod or equivalent | STACK.md §Backend API |
+| Logging | Pino or structured JSON | STACK.md §Backend API |
+| Test (backend) | Jest or Vitest | STACK.md §Core stack |
+| Test (mobile) | Jest + React Native Testing Library | STACK.md §Core stack |
+| Auth | OAuth (Google, Apple) and/or custom | STACK.md §Auth and integrations |
+| Voice input | Platform APIs + voice-to-text service (e.g. Google Speech-to-Text) | STACK.md §Mobile layer |
+
+## When Implementing
+
+When implementing:
+
+- use the locked decisions; do not propose alternatives without explicit approval
+- follow established patterns from existing code
+- if a new category requires a tool decision, propose it explicitly and update STACK.md after approval
+
+## When Reviewing
+
+When reviewing code that introduces new dependencies:
+
+- verify the dependency aligns with STACK.md
+- reject unapproved alternatives unless there is explicit justification
+- ensure new decisions are documented before merging
+
+## Exception Process
+
+If a locked decision needs to change:
+
+1. document the problem with the current choice
+2. propose the alternative explicitly
+3. update STACK.md after approval
+4. create an ADR if the change is significant
+
+## Final Rule
+
+Consult STACK.md before implementing. Use what is decided. Propose changes explicitly, not implicitly through implementation.

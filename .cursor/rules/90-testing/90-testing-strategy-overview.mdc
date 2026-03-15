@@ -1,0 +1,94 @@
+---
+description: Testing expectations for GymVoice
+globs:
+  - "**/tests/**/*.ts"
+  - "**/__tests__/**/*.ts"
+  - "**/*.test.ts"
+  - "**/*.spec.ts"
+  - "mobile/**/*.tsx"
+  - "backend/**/*.ts"
+---
+
+# Testing Strategy Overview
+
+This repository requires meaningful validation, not superficial checks.
+
+Testing exists to protect:
+
+- voice-pipeline correctness (parsing, grouping, validation)
+- session and set lifecycle integrity
+- data integrity (no silent persist of incomplete or conflicting data)
+- regression resistance
+- auth and persistence behavior
+
+## Core Rule
+
+Tests should validate behavior that matters to the supported voice-logging and session workflow.
+
+Do not add shallow tests that only confirm that code executes without verifying important behavior.
+
+## Testing Priorities
+
+The highest-value areas to validate are:
+
+### 1. Voice Pipeline (Parsing and Grouping)
+
+- ParseExerciseSkill: given phrase → expected structure; missing/ambiguous fields → no persist, explicit result (e.g. ask for confirmation)
+- GroupSeriesSkill: grouping logic for bisets/trisets; last set of group; edge cases
+- VoiceParserAgent / ErrorHandlerAgent: success path and at least one error path (unrecognized, incomplete, conflict)
+
+### 2. Session and Set Lifecycle
+
+- Session start/end, duration, and storage
+- Set and set-group persistence; history and progress queries return consistent data
+- Integration tests: SessionManagerAgent with ExerciseLoggerAgent; backend APIs with DB
+- Business rule: incomplete or conflicting set → do not persist until confirmed/clarified
+
+### 3. API Behavior
+
+- Request validation
+- Response consistency
+- Error behavior (align with SOLUTION_DESIGN error categories)
+- Contract expectations for sessions, sets, history
+
+### 4. UI (Mobile)
+
+- Key screens and flows with React Native Testing Library (e.g. confirm set, view history)
+- Spanish strings and critical user paths covered
+- Edge cases: supersets/trisets, missed sets, voice recognition errors (see Technical Documentation §7)
+
+### 5. End-to-End (Optional for MVP)
+
+- Smoke or critical-path E2E: login → start session → log one set by voice → confirm → end session → view history. Scope and tooling can be defined in a separate E2E strategy doc when needed.
+
+## Expectations by Change Type
+
+If a change affects:
+
+- parsing or grouping rules → add or update unit tests for ParseExerciseSkill, GroupSeriesSkill, VoiceParserAgent
+- session or set persistence → add or update integration tests for session/set flow and repositories
+- API contract → add or update endpoint/contract tests
+- key UI flows → add or update component/screen tests
+- auth → add or update auth flow tests; do not leave auth paths untested
+
+## Do Not
+
+Do not:
+
+- rely only on manual testing for regression-sensitive logic (voice pipeline, persistence)
+- claim coverage because a happy path passes once
+- skip tests for important state behavior (session/set lifecycle, confirmation flow)
+- approve behavior-changing work with no meaningful validation artifact
+
+## Review Standard
+
+When reviewing a change, ask:
+
+- what important behavior is being protected?
+- what regression would this test catch?
+- does the test reflect business or data-integrity meaning?
+- are failure paths represented where they matter (unrecognized, incomplete, conflict)?
+
+## Final Rule
+
+If a change materially alters supported behavior and testing does not clearly protect that behavior, validation is incomplete.

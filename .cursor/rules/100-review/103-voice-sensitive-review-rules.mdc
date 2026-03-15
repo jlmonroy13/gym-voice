@@ -1,0 +1,43 @@
+---
+description: On-demand stricter review rules for voice-pipeline, auth, and persistence changes
+---
+
+# Voice- and Data-Integrity–Sensitive Review Rules
+
+Use this rule when reviewing changes affecting voice pipeline, auth, or session/set persistence.
+
+## Core Rule
+
+Voice-pipeline–sensitive and data-integrity–sensitive changes require stricter review than ordinary feature work.
+
+## Apply Stricter Review To
+
+- voice input → parsed structure (ParseExerciseSkill, GroupSeriesSkill, VoiceParserAgent, ErrorHandlerAgent)
+- confirmation flow (incomplete or conflicting set → do not persist without confirmation)
+- session and set persistence
+- auth and token handling
+- user and session data handling
+- history and progress queries
+
+## Review Questions
+
+Ask:
+
+1. Is the behavior explicit (no hidden defaults that persist without confirmation)?
+2. Is the behavior traceable later (can we understand what was stored and when)?
+3. Is the lifecycle effect clear (pending → confirmed → persisted)?
+4. Is failure handling intentional (unrecognized, incomplete, conflict, auth/session errors)?
+5. Is the change located in the correct layer (no parsing in domain, no domain in API controllers)?
+6. Is there meaningful validation (tests for critical parsing, persistence, or auth paths)?
+
+## Block If
+
+- data-integrity meaning is ambiguous (e.g. incomplete set could be persisted without confirmation)
+- critical outcomes are not persisted or are overwritten incorrectly
+- voice or auth logic leaks into the wrong layer (e.g. domain depends on voice API)
+- failures become harder to interpret (e.g. generic errors instead of UNRECOGNIZED_VOICE, INCOMPLETE_SET, CONFLICTING_DATA)
+- validation is too weak for the risk level (e.g. no tests for new parsing or persistence paths)
+
+## Final Rule
+
+For voice-pipeline and data-integrity work, “probably correct” is not a sufficient review standard.

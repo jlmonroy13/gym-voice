@@ -1,0 +1,42 @@
+---
+description: On-demand rules for keeping issues small, coherent, and reviewable
+---
+
+# Issue Sizing Rules
+
+Use this rule when deciding how large an issue should be.
+
+## Core Rule
+
+Prefer small, coherent issues over broad umbrella tasks.
+
+## A Well-Sized Issue Should
+
+- represent one meaningful outcome
+- be understandable in one pass
+- be implementable without major hidden subprojects
+- be reviewable without overwhelming the reviewer
+- avoid bundling unrelated changes
+
+## Split Issues When
+
+- multiple layers are changing for unrelated reasons (e.g. parsing + persistence + UI in one issue)
+- multiple different outcomes are being pursued (e.g. “add voice and history”)
+- acceptance criteria are too long or mixed
+- dependencies need different sequencing (e.g. auth before session, session before sets)
+- one issue would likely produce an oversized PR
+
+## GymVoice Examples to Avoid
+
+Avoid single issues such as:
+
+- “Implement the entire voice logging flow”
+- “Add voice pipeline and session persistence”
+- “Build auth and all session screens”
+- any issue that really contains several independent delivery units
+
+Prefer: “Parse voice phrase into exercise, set, weight, reps, notes” (ParseExerciseSkill) as one issue; “Persist confirmed set to backend” as another; “Group sets into superset/triset” as another when dependencies allow.
+
+## Final Rule
+
+If an issue would likely produce a PR that is hard to review or hard to validate, the issue is probably too large. Split it.

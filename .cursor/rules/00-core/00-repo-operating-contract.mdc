@@ -1,0 +1,215 @@
+---
+description: Repository-wide operating contract for the GymVoice project
+alwaysApply: true
+---
+
+# Repository Operating Contract
+
+This repository builds GymVoice: a mobile app that lets users log gym workouts by voice (sets, reps, weight, notes, supersets, trisets).
+
+This is a data-integrity–sensitive and voice-pipeline–sensitive system. Every change must be evaluated for correctness, traceability, maintainability, and safe handling of user data and voice-derived data.
+
+You must treat this repository as an operational product codebase, not as a generic app scaffold.
+
+## Primary Mission
+
+Build a production-ready mobile and backend system capable of:
+
+- capturing voice input during workouts and converting it to structured exercise/set data
+- validating and grouping sets (including supersets and trisets) with user confirmation when needed
+- persisting sessions, sets, and set groups with clear ownership and history
+- exposing session and progress history to the user
+- handling recognition errors, incomplete data, and conflicts without persisting invalid or ambiguous data
+
+## Core Reality of This Repository
+
+This project is:
+
+- voice-first and data-integrity–oriented
+- mobile (React Native) + backend (Node + Neón)
+- workflow-driven (session → sets → groups → history)
+- traceability-sensitive (session and set data must support history and progress)
+- auth- and persistence-sensitive
+
+This project is not:
+
+- a generic workout app scaffold
+- a social or community platform in MVP
+- a place for speculative abstractions
+- a dumping ground for convenience hacks that bypass confirmation or validation
+
+## Non-Negotiable Principles
+
+### 1. Data Integrity First
+
+Do not persist incomplete or conflicting sets without user confirmation. The voice-to-structured-data pipeline must not silently guess and save.
+
+### 2. Explicitness Over Magic
+
+State changes, validation decisions, confirmation flows, and persistence effects must be explicit. No hidden “smart” defaults that alter stored data without user awareness.
+
+### 3. Domain Integrity Matters
+
+The internal model (user, session, exercise, set, set group) is the center. Do not pollute it with voice-API–specific, transport-specific, or framework-specific concerns.
+
+### 4. Traceability Is Mandatory
+
+Critical actions (session start/end, set persistence, auth) must leave a supportable trail. If the system cannot explain what was stored and when, the implementation is incomplete.
+
+### 5. Small, Reviewable Changes Win
+
+Prefer focused issues, focused diffs, and explicit intent. Do not hide broad structural changes inside “small tasks.”
+
+### 6. Safe Evolution Matters
+
+The system must remain adaptable to future product and technical changes. Voice pipeline and auth are sensitive; do not solve today’s task in a way that creates hidden long-term cost.
+
+## Repository Source of Truth
+
+Use the following hierarchy:
+
+- GitHub Issues = execution unit
+- GitHub Project = workflow and planning visibility
+- Pull Requests = implementation delivery
+- `docs/` = persistent design, product, and process knowledge
+- `PROJECT.md` = repository operating contract
+- ADRs = record of significant technical decisions
+
+If implementation, issue text, and docs disagree:
+
+- do not guess
+- surface the conflict
+- resolve it explicitly
+
+## Required Reading Before Important Work
+
+Before planning, designing, implementing, or reviewing meaningful work, consult:
+
+- `PROJECT.md`
+- `docs/product/PRD.md`
+- `docs/architecture/SOLUTION_DESIGN.md`
+- `docs/architecture/STACK.md`
+- `docs/process/DEFINITION_OF_DONE.md`
+- `docs/process/TASK_EXECUTION_WORKFLOW.md`
+- relevant ADRs
+- the current issue and related code
+- for voice pipeline work: `docs/architecture/# GymVoice – Business Logic.md`, `docs/architecture/# GymVoice – Technical Documentation.md`
+- for auth or persistence: SOLUTION_DESIGN (Security and Sensitive Data), DEFINITION_OF_DONE (sensitive areas)
+
+Do not operate from assumptions when repository context already exists.
+
+## Scope Discipline
+
+Stay aligned with the current MVP.
+
+The current project exists to support:
+
+- session lifecycle (start, log sets, end)
+- voice-driven set capture and confirmation
+- superset/triset grouping
+- persistence of users, sessions, sets, set groups
+- history and progress views
+- error handling and data integrity
+- supportable operations
+
+Avoid drifting into:
+
+- social features, leaderboards, coach dashboards
+- offline-first sync and conflict resolution (until explicitly prioritized)
+- broad analytics or export (beyond MVP)
+- speculative future architecture
+- unsupported workflows unless explicitly prioritized
+
+## Quality Expectations
+
+A change is only acceptable if it is:
+
+- scoped
+- readable
+- testable
+- reviewable
+- traceable
+- aligned with architecture
+- aligned with supported product scope
+
+Code that “works” but is vague, hidden, unvalidated, or structurally unsafe is not good enough.
+
+## Structural Expectations
+
+Preserve the intended separation among:
+
+- Mobile UI
+- Voice pipeline (parsing, grouping, validation)
+- Application / agents (orchestration)
+- Backend API
+- Domain (session, set, set group)
+- Persistence
+- External integrations (voice API, OAuth)
+
+Do not collapse these boundaries for convenience.
+
+## State and Workflow Expectations
+
+The system must preserve explicit session and set lifecycle semantics.
+
+Never:
+
+- hide confirmation or validation behind implicit defaults
+- persist sets without confirmation when incomplete or conflicting
+- lose session or set history
+- imply success without persisted evidence
+- mark a workflow complete without validation where it matters
+
+## Operational Expectations
+
+The system must be supportable in production.
+
+That means:
+
+- important failures (voice API, DB, auth) must be understandable
+- logs and persisted data must help investigation
+- environment and secrets must be handled explicitly
+- sensitive configuration must not live in code
+
+## Decision-Making Heuristic
+
+When unsure, ask:
+
+1. Does this help the user log workouts by voice with correct persistence?
+2. Does this preserve data integrity (no silent save of incomplete or conflicting sets)?
+3. Does this keep the domain (session, exercise, set, group) clear and separate from voice API or UI details?
+4. Does this make voice-pipeline and persistence behavior more explicit or less explicit?
+5. Is this safe to support later (testable, documented)?
+6. Is this really needed for the current MVP?
+
+If the answer weakens data integrity, traceability, or maintainability, do not proceed casually.
+
+## Behavior Expectations for Any Agent or Contributor
+
+Always:
+
+- restate scope before significant implementation
+- surface ambiguity instead of guessing
+- keep diffs focused
+- preserve module boundaries
+- validate behavior intentionally
+- document meaningful decisions
+- escalate architectural or voice-pipeline–sensitive ambiguity
+
+Never:
+
+- expand scope silently
+- hide architectural changes
+- treat docs as optional
+- merge “almost done” work
+- favor speed over correctness in auth, persistence, or voice pipeline
+
+## Final Rule
+
+This repository exists to build a reliable voice-driven workout logging platform.
+
+Every change should be judged by a simple test:
+
+Does this improve or protect correctness, data integrity, traceability, and maintainability for the supported scope?
+
+If not, it probably does not belong in the current work.

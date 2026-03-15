@@ -1,0 +1,39 @@
+---
+description: On-demand rules for following the task execution workflow (branch, implement, PR, merge)
+---
+
+# Task Execution Workflow
+
+Use this rule when executing work from a GitHub issue (start → implement → PR → merge → done).
+
+## Core Rule
+
+Follow `docs/process/TASK_EXECUTION_WORKFLOW.md`. The issue is the contract; scope and acceptance criteria define “done.”
+
+## Workflow Summary
+
+1. **Confirm issue ready** — Objective, scope, AC, dependencies satisfied (see 115-when-an-issue-is-ready.mdc). Move to “In progress” when starting.
+2. **Start** — Create branch (e.g. `scripts/task-start.sh N` → `issue/N-title-slug`). Move issue to “In progress” on the project board.
+3. **Implement** — Implement only what is in scope. Use the issue as contract; keep commits coherent; validate each acceptance criterion as you go.
+4. **Open PR** — Use “Closes #N” in PR description. Run lint, typecheck, tests, build. Ensure PR description explains what changed, how AC were met, and documentation impact (see 101-review-readiness-rules.mdc).
+5. **After review and DoD** — Address review comments; ensure DEFINITION_OF_DONE.md and 02-definition-of-done.mdc are satisfied. Merge.
+6. **Close** — Move issue to “Done.” Use `scripts/task-done.sh [N]` as reminder if needed.
+
+## Scripts
+
+- **scripts/task-start.sh N** — Create branch for issue N; remind to move issue to “In progress.”
+- **scripts/task-pr.sh [N]** — Open PR with “Closes #N”; N from arg or branch name.
+- **scripts/task-done.sh [N]** — Remind to move issue to “Done” after merge.
+
+Reference: TASK_EXECUTION_WORKFLOW.md; skill `task-execution-workflow` if available.
+
+## GymVoice Alignment
+
+- Implement only what is in scope; align with PRD and SOLUTION_DESIGN for product and architecture.
+- In sensitive areas (auth, user data, voice pipeline), apply stricter DoD: explicit behavior, traceability, sufficient tests (see 02-definition-of-done.mdc).
+- If the change affects user flow, business rules, or agents/skills, update Business Logic or Technical Documentation as per 03-documentation-update-rules.mdc.
+- Run tests for affected logic (e.g. ParseExerciseSkill, GroupSeriesSkill, session persistence) before opening the PR.
+
+## Final Rule
+
+Do not merge until the workflow and definition of done are satisfied. Do not expand scope without updating the issue or splitting into a new one.

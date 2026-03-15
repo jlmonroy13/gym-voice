@@ -1,0 +1,258 @@
+---
+description: Documentation update requirements and documentation ownership rules for GymVoice
+alwaysApply: true
+---
+
+# Documentation Update Rules
+
+This repository relies on documentation as part of the operating system of the project.
+
+Documentation is not decorative. It is part of how the team preserves:
+
+- scope clarity
+- architecture clarity
+- voice-pipeline and data-integrity clarity
+- review quality
+- supportability
+- future maintainability
+
+If implementation changes meaningfully and docs remain stale, the repository becomes harder to trust.
+
+## Core Rule
+
+When behavior, scope, structure, or operating assumptions change, evaluate documentation impact immediately.
+
+Do not leave doc updates as an undefined future task if the current change makes the repository’s documented understanding inaccurate.
+
+## Documentation Philosophy
+
+The repository should make it easy for a future contributor to answer:
+
+- what the product currently is
+- what is in scope right now
+- what the architecture is supposed to look like
+- what voice-pipeline and data-integrity behavior is supported
+- what “done” means
+- what major decisions were made and why
+
+If code changes but those answers become outdated, documentation work is required.
+
+## Primary Documentation Sources
+
+The following files are part of the core project knowledge base:
+
+- `PROJECT.md`
+- `docs/product/PRD.md`
+- `docs/architecture/SOLUTION_DESIGN.md`
+- `docs/architecture/STACK.md`
+- `docs/process/DEFINITION_OF_DONE.md`
+- `docs/process/TASK_EXECUTION_WORKFLOW.md`
+- `docs/planning/MILESTONES.md`
+- `docs/planning/MVP_PLAN.md`
+- `docs/architecture/adr/` (ADRs)
+- `docs/architecture/# GymVoice – Business Logic.md` — user flow, business rules, data stored, special cases
+- `docs/architecture/# GymVoice – Technical Documentation.md` — stack, structure, agents, skills, testing strategy
+
+Treat these as living project artifacts.
+
+## Documentation Update Decision Rule
+
+Before finalizing a task, ask:
+
+1. Did the scope of the product or MVP change?
+2. Did supported behavior change?
+3. Did a voice-pipeline or data-integrity rule or assumption change?
+4. Did architecture, boundaries, workflow orchestration, or state semantics change?
+5. Did an important operational assumption change?
+6. Did a major tradeoff get made that future contributors should understand?
+
+If yes to any of these, documentation likely needs updating.
+
+## When to Update `PROJECT.md`
+
+Update `PROJECT.md` when the change affects:
+
+- repository mission
+- operating principles
+- high-level scope
+- non-negotiables
+- working model of the repo
+- major product framing
+- fundamental expectations for contributors or agents
+
+Do not update it for local implementation details.
+
+## When to Update `docs/product/PRD.md`
+
+Update the PRD when the change affects:
+
+- product goal
+- target users
+- MVP scope
+- included or excluded capabilities
+- milestone framing
+- current success criteria
+- important product-level risks or direction
+
+The PRD should remain product-focused, not implementation-heavy.
+
+## When to Update `docs/architecture/SOLUTION_DESIGN.md`
+
+Update solution design when the change affects:
+
+- module or layer boundaries
+- core data flow
+- layer responsibilities
+- state lifecycle structure (session, set)
+- orchestration strategy
+- persistence strategy
+- error-handling structure
+- voice pipeline or agent/skill boundaries
+
+If the architecture changed in practice, the design doc should not continue describing the old system.
+
+## When to Update `docs/architecture/STACK.md`
+
+Update STACK.md when the change affects:
+
+- language, runtime, or framework choices
+- database, test framework, or tooling decisions
+- API or mobile layer technology choices
+
+Stack decisions should be documented before or with the change that introduces them.
+
+## When to Update `docs/process/DEFINITION_OF_DONE.md`
+
+Update Definition of Done when the project changes:
+
+- validation expectations
+- review expectations
+- merge-readiness standards
+- quality gates
+- documentation obligations
+- completion standards for certain classes of work (e.g. voice pipeline, auth, persistence)
+
+## When to Update `docs/process/TASK_EXECUTION_WORKFLOW.md`
+
+Update the task workflow when the change affects:
+
+- steps before starting, during execution, or when closing a task
+- checklist items or readiness criteria
+- relationship to GitHub Project or scripts
+
+## When to Update `docs/planning/*`
+
+Update MILESTONES.md or MVP_PLAN.md when the change affects:
+
+- milestone outcomes or deliverables
+- implementation order
+- MVP boundary (in/out of scope)
+
+## When to Update Domain Docs (`# GymVoice – Business Logic.md`, `# GymVoice – Technical Documentation.md`)
+
+Update the Business Logic doc when the change affects:
+
+- user flows (login, session start, exercise logging, supersets/trisets, completion)
+- business rules (single set, supersets/trisets, confirmation, errors, history, language/UX)
+- special cases (unrecognized exercises, incomplete sets, interruptions, notes)
+- data stored (User, session, Exercise, Set, Set group)
+
+Update the Technical Documentation when the change affects:
+
+- tech stack or repository structure
+- agents (ExerciseLogger, SessionManager, VoiceParser, ErrorHandler)
+- skills (ParseExercise, GroupSeries, ProgressHistory, Alert)
+- rules (language, voice confirmation, session timeout, data integrity)
+- testing strategy
+
+If you add or change a flow, agent, skill, or business rule, update the corresponding domain doc in the same PR or in a follow-up issue.
+
+## When to Create or Update an ADR
+
+Create or update an ADR when:
+
+- a meaningful architectural tradeoff was made
+- a significant design decision needs durable memory
+- a future contributor would otherwise be forced to rediscover the reasoning
+- a change affects long-term structure, not just local implementation
+
+Examples: domain vs voice-API boundary, persistence model choices, auth strategy, error model, state model.
+
+## Documentation Quality Standard
+
+Good docs should be:
+
+- explicit
+- current
+- scoped
+- easy to read
+- aligned with the actual system
+- free of vague promises
+- useful for planning, implementation, and review
+
+Avoid documentation that is:
+
+- aspirational but false
+- generic and noncommittal
+- stale
+- overloaded with unnecessary theory
+- inconsistent with the repository’s actual direction
+
+## Implementation-to-Documentation Alignment
+
+When a pull request changes important behavior, the reviewer should be able to answer:
+
+- which documented assumption changed?
+- where was that assumption updated?
+- what should future contributors now believe?
+
+If that answer is unclear, documentation alignment is incomplete.
+
+## Documentation Is Required for These Change Types
+
+The following change types should trigger a strong documentation review:
+
+- voice-pipeline behavior changes (parsing, grouping, validation, confirmation)
+- new or changed session/set lifecycle or state model
+- major endpoint or API contract changes
+- architecture or layer boundary changes
+- persistence strategy or schema changes
+- changes to issue/review/process expectations
+- security-sensitive or auth assumptions
+- changes to STACK.md–covered decisions
+
+## Documentation Is Usually Not Required For
+
+Docs usually do not need updating for:
+
+- isolated bug fixes that do not change system understanding
+- purely local refactors with no behavior or boundary change
+- naming cleanup with no conceptual impact
+- test-only changes that do not alter expected behavior
+
+But always verify first instead of assuming.
+
+## PR Expectations Around Documentation
+
+If a change likely affects docs, the PR should make that obvious.
+
+A strong PR should indicate one of the following:
+
+- docs updated
+- docs intentionally not needed, with a clear reason
+- follow-up doc issue created, only if deferral is truly acceptable
+
+Do not silently omit docs when the change altered project understanding.
+
+## Agent Behavior Expectations
+
+When planning, implementing, or reviewing work:
+
+- check documentation impact explicitly
+- do not assume “someone else will update it”
+- do not defer critical documentation when the current PR invalidates existing docs
+- prefer small, accurate updates over large stale documents
+
+## Final Rule
+
+If a change leaves the repository’s written understanding materially behind the real system, the work is incomplete.

@@ -1,0 +1,88 @@
+---
+description: Domain modeling principles for session, set, and set group behavior
+globs:
+  - "backend/**/domain/**/*.ts"
+  - "backend/**/models/**/*.ts"
+  - "mobile/**/services/**/*.ts"
+---
+
+# Domain Modeling Principles
+
+Use these rules when working on domain entities, domain services, domain validation, or application logic that depends on the internal session/set model.
+
+## Core Rule
+
+Model business meaning first. Do not model the domain around API request shape, voice-API output, or convenience shortcuts.
+
+## Domain Priorities
+
+The domain should prioritize:
+
+- session meaning (start, end, duration, state)
+- set and set-group meaning (exercise, weight, reps, notes, order, grouping)
+- data consistency (no incomplete or conflicting set persisted without confirmation)
+- state semantics (pending, confirmed, persisted)
+- explicit invariants (e.g. set belongs to session, group contains sets)
+
+## Preferred Characteristics
+
+Domain code should be:
+
+- explicit
+- readable
+- deterministic
+- easy to test
+- isolated from infrastructure
+- isolated from voice-API or HTTP transport details
+
+## The Domain Should Own
+
+The domain layer should own:
+
+- session and set invariants
+- business validation (e.g. set number, group consistency, session bounds)
+- allowed state transitions (e.g. pending → confirmed → persisted)
+- relationships among session, set, and set group
+
+## The Domain Should Not Own
+
+The domain layer should not own:
+
+- HTTP concerns
+- voice-to-text or parsing logic
+- OAuth or token handling
+- logging infrastructure
+- database framework details
+
+## Modeling Guidelines
+
+Prefer:
+
+- cohesive entities (Session, Set, SetGroup, Exercise, User)
+- explicit value objects when useful (e.g. Weight, Reps)
+- narrow domain services with clear intent
+- explicit naming over generic helpers
+- domain rules that can be tested without the framework
+
+Avoid:
+
+- anemic models with logic scattered everywhere
+- implicit derived behavior hidden in unrelated utilities
+- broad god objects
+- generic wrappers that obscure meaning
+- mixed domain and integration responsibilities
+
+## Business Semantics Matter
+
+States and relationships must reflect real business meaning.
+
+Do not:
+
+- persist unconfirmed or incomplete sets when the business rule requires confirmation
+- blur “parsed” with “confirmed”
+- blur “confirmed” with “persisted”
+- blur “active session” with “completed session”
+
+## Final Rule
+
+If the model becomes easier for the transport or voice layer but less faithful to the business workflow, the modeling direction is wrong.

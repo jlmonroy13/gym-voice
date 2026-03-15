@@ -1,0 +1,56 @@
+---
+description: On-demand rules for writing useful and verifiable acceptance criteria
+---
+
+# Acceptance Criteria Rules
+
+Use this rule when writing or refining acceptance criteria.
+
+## Core Rule
+
+Acceptance criteria must describe verifiable outcomes, not vague hopes. They act as a mandatory checklist during implementation and review.
+
+## Good Acceptance Criteria
+
+Good acceptance criteria are:
+
+- explicit
+- testable
+- scoped
+- outcome-oriented
+- understandable by implementers and reviewers
+
+## Prefer
+
+Prefer criteria that answer:
+
+- what behavior must exist?
+- what should happen on success?
+- what should happen on failure (e.g. unrecognized voice, incomplete set, conflict)?
+- what state or persistence effect should result?
+- what must be visible to the user or system?
+
+## GymVoice Conventions
+
+For GymVoice, criteria often take the form: **given** a voice phrase or user action **when** the system processes it **then** a specific output (parsed structure, UI state, stored session/set) and **no** unintended persistence or corruption.
+
+**Good (verifiable):** “Given the voice input ‘First set bench press, 20kg, 10 reps, it was heavy,’ the app displays exercise: Bench press, set: 1, weight: 20kg, reps: 10, notes: it was heavy, and does not persist until user confirms.”
+
+**Bad (generic):** “Voice input is handled correctly.”
+
+In sensitive areas (auth, user data, voice pipeline), criteria should explicitly state success and failure paths (e.g. “If reps or weight missing, app asks for confirmation and does not save until provided or user cancels”).
+
+## Avoid
+
+Avoid criteria like:
+
+- “works correctly”
+- “handles errors properly”
+- “supports voice flow”
+- “is production-ready”
+
+Those are too vague by themselves.
+
+## Final Rule
+
+If a reviewer cannot clearly determine whether a criterion is satisfied, the criterion is too weak. Reference: DEFINITION_OF_DONE.md; Business Logic §4, §5 for rules that affect AC (incomplete sets, conflicts, language).

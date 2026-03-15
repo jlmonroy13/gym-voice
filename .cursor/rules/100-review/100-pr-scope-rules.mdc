@@ -1,0 +1,51 @@
+---
+description: On-demand rules for reviewing PR scope and detecting hidden scope expansion
+---
+
+# PR Scope Rules
+
+Use this rule when reviewing or preparing a pull request.
+
+## Core Rule
+
+A PR should implement one coherent unit of work aligned with the linked issue.
+
+## Review For
+
+- alignment with the linked issue
+- hidden scope expansion
+- bundled unrelated refactors
+- architectural changes disguised as local cleanup
+- product scope creep
+
+## Good PR Scope
+
+A good PR:
+
+- solves a clear problem
+- stays inside approved issue boundaries
+- keeps intent easy to review
+- avoids mixing orthogonal changes
+
+## Bad PR Scope
+
+A bad PR:
+
+- solves multiple unrelated problems
+- includes “while I was here” work
+- hides structural changes without documentation
+- forces reviewers to infer the intended scope from the diff
+
+## GymVoice-Specific Warnings
+
+It is easy to creep into adjacent areas. Examples:
+
+- An issue for “ParseExerciseSkill only” might grow to include GroupSeriesSkill or persistence. If the issue was “parse one phrase into structure,” the PR should not add superset grouping or DB writes unless the issue was updated and agreed.
+- Adding a new agent, changing the session model, or adding UI copy in another language is scope creep unless the issue explicitly included it.
+- Touching voice pipeline, auth, or persistence without the issue describing that scope should be flagged.
+
+When in doubt, split into a follow-up issue and PR.
+
+## Final Rule
+
+If the reviewer cannot clearly explain what the PR is supposed to accomplish, the PR scope is too broad or too vague. Do not merge work that adds features or changes not agreed in the issue.

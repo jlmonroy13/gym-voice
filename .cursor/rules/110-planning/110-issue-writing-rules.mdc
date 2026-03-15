@@ -1,0 +1,51 @@
+---
+description: On-demand rules for writing clear, execution-ready GitHub issues
+---
+
+# Issue Writing Rules
+
+Use this rule when creating or refining GitHub issues.
+
+## Core Rule
+
+An issue should be executable without requiring others to guess its core intent.
+
+## Every Good Issue Should Include
+
+- **Title** — Clear and specific (e.g. “Parse voice phrase into exercise, set, weight, reps, notes” not “Improve voice”).
+- **Objective** — What is being built or fixed and why it matters (e.g. “So the app can capture one set from a spoken phrase and validate before save”).
+- **Scope (in scope)** — What will be done in this issue (e.g. “ParseExerciseSkill: input raw text, output structured { exercise, setNumber, weight, reps, notes }”).
+- **Out of scope** (when relevant) — What will not be done here (e.g. “No superset grouping in this issue; no persistence yet”).
+- **Dependencies** — e.g. “Depends on #N.” If the issue touches voice pipeline or session persistence, note dependency on any existing agent/skill or API.
+- **Acceptance criteria** — Concrete and verifiable (see 111-acceptance-criteria-rules.mdc). For GymVoice, prefer criteria like “Given phrase X, ParseExerciseSkill returns Y” or “Given incomplete set, app asks for confirmation and does not save until confirmed.”
+- **Relevant notes** — Only when useful (e.g. reference to Business Logic or Technical Documentation for rules that apply).
+
+## Good Issue Characteristics
+
+A good issue is:
+
+- small enough to execute
+- specific enough to avoid interpretation drift
+- aligned with the current MVP
+- testable and reviewable
+- explicit about what success means
+
+## Avoid
+
+Avoid issues that are:
+
+- vague (“Make voice better”)
+- too broad (“Implement entire workout flow”)
+- secretly multiple tasks (“Add voice and history”)
+- architecture-heavy without need
+- missing acceptance criteria
+- describing only code changes without the actual problem or user/system behavior being solved
+
+## GymVoice References
+
+- Process: TASK_EXECUTION_WORKFLOW.md, PRD; planning: MILESTONES.md, MVP_PLAN.md.
+- Domain: Business Logic doc for flows and rules; PRD for MVP scope. If the issue touches voice pipeline or session persistence, note dependency on any existing agent/skill or API.
+
+## Final Rule
+
+If the implementer would need multiple clarification rounds to understand the intended result, the issue is not ready.

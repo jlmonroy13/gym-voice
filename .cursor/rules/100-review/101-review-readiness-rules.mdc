@@ -1,0 +1,39 @@
+---
+description: On-demand rules for PR review readiness (description, AC, validation, docs)
+---
+
+# Review Readiness Rules
+
+Use this rule when preparing a PR for review or when reviewing a PR for readiness.
+
+## Core Rule
+
+A PR must be reviewable: the reviewer must be able to validate scope, acceptance criteria, and impact without reverse-engineering intent from the diff alone.
+
+## PR Must Have
+
+- **Clear description** — What changed and why; how it relates to the issue.
+- **AC reflected** — How each acceptance criterion was met, or why not applicable. Do not assume reviewers will infer this from the code.
+- **Validation indicated** — Which checks ran and passed (lint, typecheck, tests, build). If the change affects behavior, state what was tested.
+- **Documentation impact indicated** — Which docs were updated, or “N/A” with a brief reason if none.
+
+## Block Merge If
+
+- acceptance criteria are not met
+- regressions are not addressed
+- critical review comments remain unresolved
+- risks remain in critical areas without acknowledgment or tests
+
+## GymVoice-Specific Expectations
+
+For PRs that touch **auth**, **user/session data**, or **voice pipeline** (parsing, grouping, validation):
+
+- The description should state how incomplete or conflicting data is handled (confirm before save, no silent persist).
+- Indicate which tests cover the change (e.g. unit tests for ParseExerciseSkill, integration for session flow).
+- If the change affects user flow, business rules, or agents/skills, docs (Business Logic or Technical Documentation) must be updated or the PR must explain why not.
+
+Reference: DEFINITION_OF_DONE.md; sensitive areas in 02-definition-of-done.mdc.
+
+## Final Rule
+
+A PR that does not make scope, acceptance criteria, validation, and documentation impact obvious is not ready for merge.

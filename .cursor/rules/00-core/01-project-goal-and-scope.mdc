@@ -1,0 +1,201 @@
+---
+description: Project goal, MVP boundaries, and scope guardrails for GymVoice
+alwaysApply: true
+---
+
+# Project Goal and Scope
+
+This rule defines the active product goal and the practical scope boundaries of GymVoice.
+
+Its purpose is to keep all planning, design, implementation, and review aligned with the current MVP.
+
+## Current Product Goal
+
+Build a mobile-first system that can reliably:
+
+- capture voice input during workouts and convert it to structured exercise/set data
+- validate and group sets (including supersets and trisets) with user confirmation when needed
+- persist sessions, sets, and set groups with clear ownership and history
+- expose session and progress history to the user
+- handle recognition errors, incomplete data, and conflicts without persisting invalid or ambiguous data
+
+This is the actual product goal. Do not substitute it with a broader or more glamorous one.
+
+## Current MVP Scope
+
+The MVP is focused and intentionally narrow.
+
+It includes:
+
+- Authentication (OAuth Google/Apple or custom username/password)
+- Session start/end; store date, time, duration
+- Voice-driven exercise logging: parse exercise, set, weight, reps, notes; confirm and store
+- Supersets and trisets: detect or ask grouping; store sets in groups
+- Session completion; save session and update history
+- History view: sessions by day/week/month; basic progress and trends
+- Error handling: confirm on unrecognized or incomplete input; clarify conflicts before persist
+- UI in Spanish; code and comments in English
+- Unit tests for ParseExerciseSkill, GroupSeriesSkill, VoiceParserAgent; integration for SessionManager + ExerciseLogger; UI tests for key screens
+
+## Current MVP Non-Goals
+
+The following are outside the current MVP unless explicitly prioritized:
+
+- Social features, leaderboards, coach dashboards
+- Offline-first sync and conflict resolution across devices
+- Advanced analytics, charts, or export
+- Multiple users per device or family accounts
+- UI in languages other than Spanish
+- Non-voice as primary input
+- Full catalog of exercises or equipment (MVP can start with free-text exercise names)
+- E2E tests (optional for MVP; can be added in a later milestone)
+
+Do not casually introduce these into active work.
+
+## Product Framing Rule
+
+This system is a voice-first workout logging engine.
+
+It is not just:
+
+- a generic fitness tracker
+- a social or community app
+- a dashboard product
+- a CRUD-only API
+
+Always reason from workflow integrity and data integrity, not feature surface.
+
+## What Counts as High-Value Work Right Now
+
+High-value work usually falls into one of these categories:
+
+### Core Workflow
+
+- Session start/end and duration
+- Voice capture and parsing
+- Set confirmation and persistence
+- Superset/triset grouping
+- Session completion and history
+
+### Voice Pipeline Surface
+
+- ParseExerciseSkill (phrase → structured set)
+- GroupSeriesSkill (bisets/trisets)
+- VoiceParserAgent, ErrorHandlerAgent
+- Validation and confirmation flow
+
+### Persistence and Traceability
+
+- User and session storage
+- Set and set-group persistence
+- History and progress queries
+- No silent overwrite of meaningful data
+
+### Operational Safety
+
+- Auth and token handling
+- Error handling (unrecognized, incomplete, conflict)
+- Data integrity (no persist without confirmation when required)
+- Environment and secrets
+
+### Quality and Delivery Infrastructure
+
+- Testing (parsing, grouping, session, UI)
+- Issue quality and acceptance criteria
+- CI (lint, typecheck, test)
+- Documentation
+- Review readiness
+
+## What Counts as Suspicious Scope Expansion
+
+Be careful when work begins drifting toward:
+
+- generic social or community UX
+- “helpful” broad abstractions that obscure the voice/session flow
+- reporting or analytics beyond basic history and progress
+- unrelated auth or multi-tenant complexity
+- anything that does not directly improve voice logging, session lifecycle, or data integrity
+
+Such work should usually be deferred, split out, or explicitly approved.
+
+## Scope Decision Heuristic
+
+When evaluating a proposed feature, issue, refactor, or architectural change, ask:
+
+1. Does this directly support the voice → parse → confirm → persist → history workflow?
+2. Does this directly reduce risk to data integrity or user trust?
+3. Does this directly improve traceability, maintainability, or testability of that workflow?
+4. Is this necessary for the current MVP?
+5. Is this solving a present need, not an imagined future one?
+
+If the answer is weak, the work is probably not in scope right now.
+
+## Interpretation of “Ready to Persist”
+
+Do not treat a set as persistence-ready just because it was parsed from voice.
+
+The product goal distinguishes among:
+
+- raw voice output
+- parsed structure (possibly incomplete or conflicting)
+- user-confirmed structure
+- persisted outcome
+
+These are different concepts and should not be collapsed.
+
+## Interpretation of “Done”
+
+A feature is not valuable merely because it adds surface area. Work is valuable when it strengthens the supported workflow in a way that is:
+
+- explicit
+- testable
+- reviewable
+- supportable
+
+## Guidance for Planning
+
+When breaking work into issues:
+
+- prefer narrow, execution-ready issues
+- keep dependencies visible
+- keep acceptance criteria explicit
+- avoid giant umbrella tasks
+- align issues to milestone outcomes, not vague themes
+
+A well-scoped issue should support the current MVP directly.
+
+## Guidance for Architecture
+
+When making structural decisions:
+
+- optimize for the current supported scope (session, set, set group, voice pipeline)
+- preserve safe extension paths
+- do not build for every future feature now
+- do not add complexity without present justification
+
+## Guidance for Implementation
+
+When implementing:
+
+- stay within issue scope
+- do not expand to adjacent features unless approved
+- preserve the voice logging and session workflow
+- avoid broad cleanup unless it is required for correctness
+
+## Guidance for Review
+
+When reviewing:
+
+- check scope alignment first
+- block accidental product expansion
+- block hidden architectural broadening
+- protect the MVP from dilution
+- protect data-integrity and voice-pipeline areas with stricter standards
+
+## Final Rule
+
+The active project goal is not to build “everything a fitness app might someday need.”
+
+The active project goal is to build a reliable, supportable voice-driven workout logging app for the current MVP scope.
+
+If a proposed change does not clearly strengthen that goal, it should probably not be part of the current work.
