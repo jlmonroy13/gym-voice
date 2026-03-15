@@ -12,9 +12,11 @@ Milestones and epics should reflect delivery outcomes, not vague buckets of acti
 
 ## Milestones Should Represent (GymVoice)
 
-- **M1 — Foundation** — Repo, workflow, baseline docs, project setup (mobile + backend), auth, basic API; team can ship small changes safely.
-- **M2 — Voice pipeline and session** — Voice capture → parsing → structured set; session start/end; set and set-group persistence; confirm/clarify flow.
-- **M3+ — History, progress, polish** — History view (sessions by day/week/month); progress and trends; error handling and UX polish; optional E2E.
+- **M1 — Foundation** — Repo, workflow, baseline docs, project setup (mobile + backend), CI; project ready for feature work.
+- **M2 — Auth and first vertical slice** — Auth (OAuth or custom); voice-to-text; ParseExerciseSkill; minimal session/set persistence; speak → confirm → persist one set.
+- **M3 — Voice pipeline and session** — VoiceParserAgent, ErrorHandlerAgent, GroupSeriesSkill, SessionManager; session start/end; set and set-group persistence; confirm/clarify flow.
+- **M4 — History, progress, and polish** — History view (day/week/month); progress and trends; Spanish UI; error handling and UX polish; unit/integration/UI tests; MVP complete.
+- **M5+ — Post-MVP** — Richer progress visualization, offline support, new skills; scope defined when M4 is complete.
 
 See `docs/planning/MILESTONES.md` and `docs/planning/MVP_PLAN.md` for the single source of truth.
 

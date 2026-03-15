@@ -17,7 +17,7 @@ Run this command when the user wants to:
 5. **Recommend** the single issue that is most convenient to do next, considering:
    - Project scope (MVP and `docs/planning/MILESTONES.md`, `PROJECT.md`, `.cursor/rules/00-core/01-project-goal-and-scope.mdc`)
    - Dependencies between issues (e.g. "Depends on #N" — prefer issues whose dependencies are already Done or closed)
-   - Milestone order (M1 before M2, etc.)
+   - Milestone order (M1 before M2 before M3 before M4 for MVP)
    - No hidden blockers or vague scope
 
 ---
@@ -120,7 +120,7 @@ From **all issues now in Ready** (including ones that were already Ready and one
 
 2. **Milestone and scope**
    - Use `docs/planning/MILESTONES.md` and `PROJECT.md` / `.cursor/rules/00-core/01-project-goal-and-scope.mdc` to prefer issues that:
-     - Belong to the current or next logical milestone (e.g. M1 before M2).
+     - Belong to the current or next logical milestone (e.g. M1 before M2 before M3 before M4).
      - Directly support the MVP (session lifecycle, voice pipeline, persistence, history, auth, data integrity).
    - Avoid recommending issues that are out of scope or that assume work that is not yet done.
 
@@ -129,7 +129,7 @@ From **all issues now in Ready** (including ones that were already Ready and one
    - If there are no Ready issues or all have unsatisfied dependencies, say so and suggest either: (a) complete the blocking issue(s) first, or (b) refine a Backlog issue so it can be moved to Ready.
 
 4. **Justify briefly**
-   - In 2–4 sentences, explain why this issue is the most convenient next (e.g. dependencies satisfied, aligns with M1, small and well-scoped, unblocks others).
+   - In 2–4 sentences, explain why this issue is the most convenient next (e.g. dependencies satisfied, aligns with current milestone (M1–M4), small and well-scoped, unblocks others).
 
 ---
 

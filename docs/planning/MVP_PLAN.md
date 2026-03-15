@@ -2,7 +2,7 @@
 
 **Purpose:** Single reference for MVP boundary, milestone structure, implementation order, and stack. See also docs/product/PRD.md and docs/planning/MILESTONES.md.
 
-**Execution readiness:** This plan defines what is in/out of scope, how milestones are structured, and a suggested implementation order. Map concrete issues to M1/M2 (and later milestones) in MILESTONES.md.
+**Execution readiness:** This plan defines what is in/out of scope, how milestones are structured, and a suggested implementation order. Map concrete issues to M1–M4 (and M5+ for post-MVP) in MILESTONES.md.
 
 ---
 
@@ -42,9 +42,11 @@ MVP is done when: a user can log in → start a session → log at least one set
 
 | # | Milestone | Outcome |
 |---|-----------|--------|
-| **M1** | **Foundation** | Repo, workflow, baseline docs, project setup (mobile + backend), auth, basic API; team can ship small changes safely. |
-| **M2** | **Voice pipeline and session** | Voice capture → parsing → structured set; session start/end; set and set-group persistence; confirm/clarify flow. |
-| **M3+** | **History, progress, polish** | History view (sessions by day/week/month); progress and trends; error handling and UX polish; optional E2E. |
+| **M1** | **Foundation** | Repo, workflow, baseline docs, project setup (mobile + backend), CI; team can ship small changes safely. |
+| **M2** | **Auth and first vertical slice** | Auth (OAuth or custom); voice-to-text; ParseExerciseSkill; minimal session/set persistence; speak → confirm → persist one set. |
+| **M3** | **Voice pipeline and session** | VoiceParserAgent, ErrorHandlerAgent, GroupSeriesSkill, SessionManager; session start/end; set and set-group persistence; confirm/clarify flow. |
+| **M4** | **History, progress, and polish** | History view (day/week/month); progress and trends; Spanish UI; error handling and UX polish; unit/integration/UI tests; optional E2E. |
+| **M5+** | **Post-MVP** | Richer progress visualization, offline support, new skills; scope defined when M4 is complete. |
 
 For detailed description, deliverables, dependencies, and issues per milestone, see [MILESTONES.md](MILESTONES.md).
 
@@ -81,4 +83,4 @@ For detailed description, deliverables, dependencies, and issues per milestone, 
 | 6 | Session completion and history | End session; history API + UI (sessions, progress). |
 | 7 | Error handling and polish | Confirmations, conflict clarification, alerts; progress visualization; tests. |
 
-Map issues to these themes and to M1/M2 in MILESTONES.md.
+Map issues to these themes and to M1–M4 in MILESTONES.md.

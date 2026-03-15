@@ -228,9 +228,11 @@ For details and issue mapping, see [docs/planning/MILESTONES.md](../planning/MIL
 
 | Milestone | Summary |
 |-----------|---------|
-| **M1 – Foundation** | Repo, workflow, mobile + backend scaffolding, auth, basic voice integration, first vertical slice (one set by voice → persist). |
-| **M2 – MVP** | Full voice logging, supersets/trisets, session start/end, history and progress, error handling and confirmations, Spanish UI, tests for parsing and grouping. |
-| **M3+** | Post-MVP (e.g. richer progress visualization, offline support). |
+| **M1 – Foundation** | Repo, workflow, mobile + backend scaffolding, CI; project ready for feature work. |
+| **M2 – Auth and first vertical slice** | Auth (OAuth or custom); voice-to-text; ParseExerciseSkill; minimal session/set persistence; speak → confirm → persist one set. |
+| **M3 – Voice pipeline and session** | VoiceParserAgent, ErrorHandlerAgent, GroupSeriesSkill, SessionManager; session start/end; set and set-group persistence; confirm/clarify flow. |
+| **M4 – History, progress, and polish** | History and progress view; Spanish UI; error handling and confirmations; unit/integration/UI tests; MVP complete. |
+| **M5+** | Post-MVP (e.g. richer progress visualization, offline support). |
 
 ---
 
@@ -266,7 +268,7 @@ Incomplete or conflicting sets will never be saved without user confirmation or 
 ## Open Product Questions
 - Exact voice API provider and language model (e.g. Google Speech-to-Text, language/locale).
 - Offline voice recognition in a later phase (yes/no, when).
-- How much progress visualization in M2 (basic list + trends vs. richer charts).
+- How much progress visualization in M4 (basic list + trends vs. richer charts).
 
 ---
 

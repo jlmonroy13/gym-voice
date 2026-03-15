@@ -26,7 +26,7 @@ Many features depend on earlier work. Examples:
 - History view depends on session/set persistence.
 - Any issue that touches VoiceParserAgent, ParseExerciseSkill, GroupSeriesSkill, or persistence should list any issue that must merge first (e.g. backend models/routes, voice API integration).
 
-Respect milestone order (M1 before M2). If the issue consumes data or API from another issue, that other issue is a dependency.
+Respect milestone order (M1 before M2 before M3 before M4 for MVP; M5+ after M4). If the issue consumes data or API from another issue, that other issue is a dependency.
 
 ## Do Not
 

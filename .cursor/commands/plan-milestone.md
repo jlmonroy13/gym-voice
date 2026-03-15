@@ -14,7 +14,7 @@ can apply with minimal extra work (ideally just running the generated commands).
 
 This command completes in **one** run:
 
-1. Resolve which milestone to plan (e.g. `M1 - Foundation`, `M2 - Voice pipeline and session`).
+1. Resolve which milestone to plan (e.g. `M1 - Foundation`, `M2 - Auth and first vertical slice`, `M3 - Voice pipeline and session`, `M4 - History, progress, and polish`).
 2. Read all relevant planning, product, and architecture docs.
 3. Discover and read any **existing GitHub issues** already assigned to this
    milestone.
@@ -79,8 +79,8 @@ The user should only need to:
 ## Input
 
 - The user will either:
-  - provide the **exact milestone title** (e.g. `"M2 - Voice pipeline and session"`),
-  - reference the shorthand (e.g. `"M2"`), or
+  - provide the **exact milestone title** (e.g. `"M1 - Foundation"`, `"M2 - Auth and first vertical slice"`, `"M3 - Voice pipeline and session"`, `"M4 - History, progress, and polish"`),
+  - reference the shorthand (e.g. `"M1"`, `"M2"`, `"M3"`, `"M4"`), or
   - ask you to plan "the next milestone" (you must resolve which that is from
     `MILESTONES.md`).
 - You must confirm which milestone you are using in your own words at the top
@@ -174,8 +174,10 @@ of existing issues**:
 
 1. Propose **2–5 epics** for this milestone.
    - Each epic must represent a **meaningful capability**, not a vague bucket.
-   - Examples for M1: `Project setup`, `Auth`, `Basic API`, `Repo workflow`.
-   - Examples for M2: `Voice pipeline (parsing)`, `Session lifecycle`, `Set persistence`, `Confirmation flow`.
+   - Examples for M1: `Project setup`, `Repo workflow`, `CI`, `Docs`.
+   - Examples for M2: `Auth`, `Voice-to-text`, `ParseExerciseSkill`, `First vertical slice`.
+   - Examples for M3: `Voice pipeline (parsing)`, `Session lifecycle`, `Set and set-group persistence`, `Confirmation flow`.
+   - Examples for M4: `History and progress`, `Spanish UI`, `Error handling and polish`, `Tests`.
 2. Under each epic, propose **concrete issues**.
    - Start by placing existing KEEP‑AS‑IS / REFINE issues into appropriate epics.
    - Only then propose **new** issues to cover remaining gaps.
