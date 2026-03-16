@@ -38,6 +38,9 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|@react-native)"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^react-native/Libraries/vendor/emitter/EventEmitter$": "<rootDir>/src/test/mocks/EventEmitter"
+    }
   }
 }
