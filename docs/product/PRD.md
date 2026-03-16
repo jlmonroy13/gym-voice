@@ -6,6 +6,14 @@ GymVoice
 ## Document Purpose
 This PRD defines the product scope, target users, primary workflows, constraints, and success criteria for GymVoice. It keeps the project aligned around a focused MVP: voice-driven workout logging with correct persistence, history, and error handling. Technical implementation details belong in the architecture and technical documentation. Domain context (flows, rules, data) is in **`docs/architecture/# GymVoice – Business Logic.md`**; stack, agents, and skills are in **`docs/architecture/# GymVoice – Technical Documentation.md`**.
 
+Related baseline docs:
+
+- Repository operating contract: `PROJECT.md`
+- Solution design / architecture: `docs/architecture/SOLUTION_DESIGN.md`
+- Stack and tooling decisions: `docs/architecture/STACK.md`
+- Milestones and MVP plan: `docs/planning/MILESTONES.md`, `docs/planning/MVP_PLAN.md`
+- Workflow and completion standard: `docs/process/TASK_EXECUTION_WORKFLOW.md`, `docs/process/DEFINITION_OF_DONE.md`
+
 ---
 
 ## Problem Statement

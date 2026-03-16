@@ -22,6 +22,8 @@ Implementers should assume these choices; planning and architecture docs (MVP_PL
 
 ---
 
+> For architecture and data flow, see [`SOLUTION_DESIGN.md`](./SOLUTION_DESIGN.md). For product scope and MVP framing, see [`PRD.md`](../product/PRD.md). For milestones and MVP boundary, see [`MILESTONES.md`](../planning/MILESTONES.md) and [`MVP_PLAN.md`](../planning/MVP_PLAN.md). For workflow and completion standard, see [`TASK_EXECUTION_WORKFLOW.md`](../process/TASK_EXECUTION_WORKFLOW.md) and [`DEFINITION_OF_DONE.md`](../process/DEFINITION_OF_DONE.md).
+
 ## Mobile layer decisions
 
 | Decision | Choice | Rationale |

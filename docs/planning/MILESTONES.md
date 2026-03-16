@@ -3,8 +3,13 @@
 **Purpose:** Single source of truth for MVP milestone definitions: description, expected outcome, deliverables, and dependencies.
 
 **Related documents:**
-- [MVP_PLAN.md](MVP_PLAN.md) — MVP boundary, implementation order, and issue mapping.
+- [PROJECT.md](../../PROJECT.md) — Repository mission, scope, and operating contract.
 - [PRD.md](../product/PRD.md) — Product scope and MVP framing.
+- [SOLUTION_DESIGN.md](../architecture/SOLUTION_DESIGN.md) — Architecture, layers, and data flow.
+- [STACK.md](../architecture/STACK.md) — Stack and tooling decisions.
+- [DEFINITION_OF_DONE.md](../process/DEFINITION_OF_DONE.md) — Completion standard before merge.
+- [TASK_EXECUTION_WORKFLOW.md](../process/TASK_EXECUTION_WORKFLOW.md) — End-to-end task workflow.
+- [MVP_PLAN.md](MVP_PLAN.md) — MVP boundary, implementation order, and issue mapping.
 - **GitHub:** [jlmonroy13/gym-voice](https://github.com/jlmonroy13/gym-voice) — Issues can be assigned to milestones on the project board.
 
 ---

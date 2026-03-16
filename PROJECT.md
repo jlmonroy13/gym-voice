@@ -115,16 +115,25 @@ Use **`scripts/task-start.sh <issue_number>`** to create branch `issue/N-title-s
 Every PR must link to the issue (e.g. `Closes #N`) and include a brief scope description. Use the pull request template at `.github/pull_request_template.md` when opening via UI; when using `gh pr create` or `scripts/task-pr.sh`, fill in the template manually if needed.
 
 ## Documentation Requirements
-The following documents should exist and stay updated:
+The following documents should exist and stay updated (see `README.md` for a single entry point and docs map):
 - `PROJECT.md`
 - `docs/product/PRD.md`
 - `docs/architecture/SOLUTION_DESIGN.md`
+- `docs/architecture/STACK.md`
 - `docs/architecture/# GymVoice – Business Logic.md`
 - `docs/architecture/# GymVoice – Technical Documentation.md`
 - `docs/process/DEFINITION_OF_DONE.md`
 - `docs/process/TASK_EXECUTION_WORKFLOW.md`
-- `docs/planning/MILESTONES.md`, `MVP_PLAN.md`
+- `docs/planning/MILESTONES.md`, `docs/planning/MVP_PLAN.md`
 - `docs/architecture/adr/` for significant design decisions
+
+### Cross-references
+
+- Product scope and MVP framing: `docs/product/PRD.md`
+- Architecture and data flow: `docs/architecture/SOLUTION_DESIGN.md`
+- Stack and tooling decisions: `docs/architecture/STACK.md`
+- Milestones and MVP boundary: `docs/planning/MILESTONES.md`, `docs/planning/MVP_PLAN.md`
+- Workflow and completion standard: `docs/process/TASK_EXECUTION_WORKFLOW.md`, `docs/process/DEFINITION_OF_DONE.md`
 
 ## Definition of Success
 This project is successful when:
