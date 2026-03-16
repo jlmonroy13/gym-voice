@@ -12,6 +12,29 @@
 
 ---
 
+## Branching and pull requests
+
+Use this section as the single place to find **how to start a task and open a PR**.
+
+### Branch naming
+
+- One branch per issue: **`issue/<N>-<title-slug>`** for issue #N.
+- Example: for issue #1 "Document branching convention and PR template", the branch is `issue/1-document-branching-convention-and-pr-template`.
+- The slug is the issue title in lowercase, spaces and non-alphanumeric characters replaced by hyphens.
+
+### Starting a task (create branch)
+
+- Run **`scripts/task-start.sh N`** from the repository root (with `N` = issue number). This creates or checks out the branch `issue/N-title-slug` and reminds you to move the issue to "In progress" on the project board.
+- Prerequisites: `gh` CLI installed and authenticated (`gh auth status`). For board updates, ensure token has `project` scope (`gh auth refresh -s project` if needed). See [scripts/README.md](../../scripts/README.md).
+
+### Opening a pull request
+
+- Use the repository **PR template** for every PR: [.github/pull_request_template.md](../../.github/pull_request_template.md). Fill in Summary, Issue (Closes #N), Scope, Acceptance criteria, Validation, and Documentation.
+- Run **`scripts/task-pr.sh N`** (or `scripts/task-pr.sh` to infer N from the branch name) to open a PR with "Closes #N". Then ensure the PR body matches the template (Summary, Scope, AC checklist, Validation, Docs).
+- Full process: [TASK_EXECUTION_WORKFLOW.md](TASK_EXECUTION_WORKFLOW.md) §1–§3; [DEFINITION_OF_DONE.md](DEFINITION_OF_DONE.md) before merge.
+
+---
+
 ## 1. Before Starting a Task
 
 ### 1.1 Pick Only "Ready" Issues
