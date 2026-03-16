@@ -2,6 +2,8 @@
 
 Voice-first workout logging app: capture sets, reps, weight, notes, and supersets/trisets by voice with strong data integrity and history.
 
+CI runs on push and pull requests to `main`: lint, typecheck, and tests for `backend/` and `mobile/` (see [.github/workflows/ci.yml](.github/workflows/ci.yml)).
+
 ## Where to start
 
 - [PROJECT.md](PROJECT.md) — repository mission, scope, and operating contract.
