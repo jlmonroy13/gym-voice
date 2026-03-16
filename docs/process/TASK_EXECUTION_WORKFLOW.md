@@ -3,10 +3,14 @@
 **Purpose:** Single reference for how to execute GitHub project tasks in this repository so that work is done in the same way every time: orderly, acceptance-criteria driven, board up to date, and traceable.
 
 **Related documents:**
+- [PROJECT.md](../../PROJECT.md) — Repository mission, scope, and operating contract.
+- [PRD.md](../product/PRD.md) — Product scope and MVP framing.
+- [SOLUTION_DESIGN.md](../architecture/SOLUTION_DESIGN.md) — Architecture, layers, and data flow.
+- [STACK.md](../architecture/STACK.md) — Stack and tooling decisions.
 - [DEFINITION_OF_DONE.md](DEFINITION_OF_DONE.md) — When work is considered done and safe to merge.
-- [.cursor/skills/github-workflow/SKILL.md](../../.cursor/skills/github-workflow/SKILL.md) — Issue/PR standards and gh CLI usage.
 - [MILESTONES.md](../planning/MILESTONES.md) — Milestone order and deliverables.
 - [MVP_PLAN.md](../planning/MVP_PLAN.md) — MVP boundary and implementation order.
+- [.cursor/skills/github-workflow/SKILL.md](../../.cursor/skills/github-workflow/SKILL.md) — Issue/PR standards and gh CLI usage.
 
 **GymVoice:** Align scope and behavior with [PRD](../product/PRD.md) and [SOLUTION_DESIGN](../architecture/SOLUTION_DESIGN.md). In sensitive areas (auth, user data, voice pipeline) apply stricter DoD.
 

@@ -3,7 +3,14 @@
 ## Purpose
 This document defines the minimum completion standard for all work delivered in the GymVoice repository. An issue, task, or pull request is only considered done when the work is correct, validated, traceable, reviewable, aligned with scope, and safe to merge. This document exists to prevent incomplete work, hidden regressions, undocumented behavior changes, and data-integrity shortcuts.
 
-**Related:** Full task flow from picking an issue to closing it: [TASK_EXECUTION_WORKFLOW.md](TASK_EXECUTION_WORKFLOW.md).
+**Related baseline docs:**
+
+- Workflow: [TASK_EXECUTION_WORKFLOW.md](TASK_EXECUTION_WORKFLOW.md)
+- Repository operating contract: [PROJECT.md](../PROJECT.md)
+- Product scope and MVP framing: [PRD.md](../product/PRD.md)
+- Architecture and data flow: [SOLUTION_DESIGN.md](../architecture/SOLUTION_DESIGN.md)
+- Stack and tooling decisions: [STACK.md](../architecture/STACK.md)
+- Milestones and MVP boundary: [MILESTONES.md](../planning/MILESTONES.md), [MVP_PLAN.md](../planning/MVP_PLAN.md)
 
 ---
 

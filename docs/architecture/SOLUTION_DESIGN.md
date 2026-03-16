@@ -8,6 +8,14 @@ The document is pragmatic: it guides implementation, reduces ambiguity, and keep
 
 **Stack and tooling:** Language, runtime, mobile framework, database, and test choices are documented in [STACK.md](./STACK.md). Implementers should assume those choices.
 
+Related baseline docs:
+
+- Repository operating contract: [`PROJECT.md`](../../PROJECT.md)
+- Product scope and MVP framing: [`PRD.md`](../product/PRD.md)
+- Stack and tooling decisions: [`STACK.md`](./STACK.md)
+- Milestones and MVP boundary: [`MILESTONES.md`](../planning/MILESTONES.md), [`MVP_PLAN.md`](../planning/MVP_PLAN.md)
+- Workflow and completion standard: [`TASK_EXECUTION_WORKFLOW.md`](../process/TASK_EXECUTION_WORKFLOW.md), [`DEFINITION_OF_DONE.md`](../process/DEFINITION_OF_DONE.md)
+
 ---
 
 ## System Goal
