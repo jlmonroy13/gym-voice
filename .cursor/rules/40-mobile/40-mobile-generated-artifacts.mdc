@@ -1,0 +1,39 @@
+# Mobile Generated Artifacts Rule
+
+This rule prevents large, generated mobile artifacts from being committed to the GymVoice repository.
+
+## Core Rule
+
+Do **not** commit React Native generated artifacts or dependencies:
+
+- `mobile/node_modules/**`
+- `mobile/ios/**`
+- `mobile/android/**`
+- Any build outputs, cache directories, or platform-specific generated files under `mobile/`.
+
+The repository must only track **source, configuration, and tests** for the mobile app (e.g. `App.tsx`, `src/**`, `package.json`, `tsconfig.json`, `babel.config.js`, `metro.config.js`, `README.md`).
+
+## Rationale
+
+- Huge PRs with thousands of generated files are hard to review and noisy.
+- `node_modules` and native platform folders are environment-specific and should be reproducible from `package.json` and tooling.
+- Keeping the repo focused on source code improves clarity, performance, and history quality.
+
+## Expected Behavior
+
+- `.gitignore` must ignore `mobile/node_modules/`, `mobile/ios/`, `mobile/android/`, and other generated paths.
+- Before committing any mobile work:
+  - Run `git status` and confirm that **no** `mobile/node_modules/` or native platform folders appear as added/modified.
+  - If `git status` shows more than ~100 new files under `mobile/`, stop and inspect; large additions should almost always be avoided unless they are real source files intentionally added.
+
+## When Adding Mobile Tooling
+
+When you introduce new React Native tooling that creates additional generated folders or caches:
+
+- Update `.gitignore` to exclude those paths.
+- Verify that `git ls-files "mobile/*"` does **not** include those generated directories.
+
+## Final Rule
+
+Mobile changes should produce **small, reviewable diffs** centered on source and configuration. If a change would introduce thousands of files from `mobile/node_modules` or native platforms, the change must be re-scoped and the generated artifacts excluded before commit.
+

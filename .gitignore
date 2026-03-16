@@ -1,0 +1,7 @@
+node_modules/
+mobile/node_modules/
+mobile/ios/
+mobile/android/
+backend/node_modules/
+backend/dist/
+
